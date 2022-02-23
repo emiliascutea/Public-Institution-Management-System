@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html style="background-color:#56baed;" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>List Users</title>
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <style>
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: #111;
+        }
+
+        .active {
+            background-color: #56baed;
+        }
+
+        body {
+            height: 100vh;
+        }
+
+        .menu {
+            background-color: #56baed;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+            min-height: 100%;
+            padding: 0px;
+        }
+
+        .menuList {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            float: left;
+        }
+
+        .menuListItem {
+            float: left;
+        }
+
+        .textDiv1 {
+            border-radius: 10px 10px 10px 10px;
+            background: #ffffff;
+            padding: 30px;
+            width: 90%;
+            max-width: 580px;
+            position: center;
+            box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+            text-align: center;
+            margin-top: 5px;
+        }
+
+        .headerStyle {
+            font-size: 24px;
+            font-family: Raleway, sans-serif;
+            color: dimgray;
+        }
+        body {
+            font-family: "lato", sans-serif;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 50px;
+            padding-right: 10px;
+        }
+
+        h2 {
+            font-size: 26px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        h2 small {
+            font-size: 0.5em;
+        }
+
+        .responsive-table tr {
+            border-radius: 3px;
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            width: 400px;
+        }
+        .responsive-table .table-header {
+            background-color: #56baed;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            margin-bottom: 25px;
+
+        }
+        .responsive-table .table-row {
+            background-color: #ffffff;
+            box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+        }
+        .responsive-table .col-1 {
+            flex-basis: 10%;
+        }
+        .responsive-table .col-2 {
+            flex-basis: 30%;
+        }
+        .responsive-table .col-3 {
+            flex-basis: 30%;
+        }
+        .responsive-table .col-4 {
+            flex-basis: 30%;
+        }
+
+        @media all and (max-width: 767px) {
+            .responsive-table .table-header {
+                display: none;
+            }
+            .responsive-table li {
+                display: block;
+            }
+            .responsive-table .col {
+                flex-basis: 100%;
+            }
+            .responsive-table .col {
+                display: flex;
+                padding: 10px 0;
+            }
+            .responsive-table .col:before {
+                color: #6C7A89;
+                padding-right: 10px;
+                content: attr(data-label);
+                flex-basis: 50%;
+                text-align: right;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+<div class="menu">
+    <ul class="menuList">
+        <li class="menuListItem"><a th:href="@{/homeadmin}">Home </a></li>
+        <li class="menuListItem"><a th:href="@{/usersadmin}" class="active">Users </a></li>
+        <li class="menuListItem"><a th:href="@{/questionsadmin}">Questions</a></li>
+        <li class="menuListItem"><a th:href="@{/appointmentsadmin}">Appointments</a></li>
+        <div sec:authorize="isAuthenticated()">
+            <li class="menuListItem"><a th:href="@{/logout}" th:method="post">Logout</a></li>
+        </div>
+    </ul>
+    <div class="textDiv1">
+        <h1>List of Users</h1>
+
+        <div class="container">
+            <table class="responsive-table">
+                <thead class="table-header">
+                <tr>
+                    <th class="col col-1">User ID</th>
+                    <th class="col col-2">E-mail</th>
+                    <th class="col col-3">First Name</th>
+                    <th class="col col-4">Last Name</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="table-row" th:each="user: ${listUsers}">
+                    <td class="col col-1" th:text="${user.id}"></td>
+                    <td class="col col-2" th:text="${user.email}"></td>
+                    <td class="col col-3" th:text="${user.firstName}"></td>
+                    <td class="col col-4" th:text="${user.lastName}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

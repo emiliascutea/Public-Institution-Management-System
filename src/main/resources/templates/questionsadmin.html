@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html style="background-color:#56baed;" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Questions</title>
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <style>
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: #111;
+        }
+
+        .active {
+            background-color: #56baed;
+        }
+
+        .menu {
+            background-color: #56baed;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+            min-height: 100%;
+            padding: 0px;
+        }
+
+        .menuList {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            float: left;
+        }
+
+        .menuListItem {
+            float: left;
+        }
+
+        .textDiv1 {
+            border-radius: 10px 10px 10px 10px;
+            background: #ffffff;
+            padding: 30px;
+            width: 90%;
+            max-width: 580px;
+            position: center;
+            box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+            text-align: center;
+            margin-top: 100px;
+        }
+        .login {
+            width: 320px;
+            padding: 30px;
+        }
+
+        .login__field {
+            padding: 20px 0px;
+            position: relative;
+        }
+
+        .login__input {
+            border: none;
+            border-bottom: 2px solid #D1D1D4;
+            background: none;
+            padding: 10px;
+            padding-left: 24px;
+            font-weight: 700;
+            width: 75%;
+            transition: .2s;
+        }
+
+        .login__input:active,
+        .login__input:focus,
+        .login__input:hover {
+            outline: none;
+            border-bottom-color: #56baed;
+        }
+
+        .login__submit {
+            background: #fff;
+            font-size: 14px;
+            margin-top: 30px;
+            padding: 16px 20px;
+            border-radius: 26px;
+            border: 1px solid #D4D3E8;
+            text-transform: uppercase;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            color: #56baed;
+            box-shadow: 0px 2px 2px #56baed;
+            cursor: pointer;
+            transition: .2s;
+            text-align: center;
+        }
+        .login__submit:active,
+        .login__submit:focus,
+        .login__submit:hover {
+            border-color: #56baed;
+            outline: none;
+        }
+        body {
+            font-family: "lato", sans-serif;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        h2 {
+            font-size: 26px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        h2 small {
+            font-size: 0.5em;
+        }
+
+        .responsive-table tr {
+            border-radius: 3px;
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            width: 500px;
+        }
+        .responsive-table .table-header {
+            background-color: #56baed;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            margin-bottom: 25px;
+
+        }
+        .responsive-table .table-row {
+            background-color: #ffffff;
+            box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+        }
+        .responsive-table .col-1 {
+            flex-basis: 10%;
+        }
+        .responsive-table .col-2 {
+            flex-basis: 30%;
+        }
+        .responsive-table .col-3 {
+            flex-basis: 30%;
+        }
+        .responsive-table .col-4 {
+            flex-basis: 30%;
+        }
+
+        @media all and (max-width: 767px) {
+            .responsive-table .table-header {
+                display: none;
+            }
+            .responsive-table li {
+                display: block;
+            }
+            .responsive-table .col {
+                flex-basis: 100%;
+            }
+            .responsive-table .col {
+                display: flex;
+                padding: 10px 0;
+            }
+            .responsive-table .col:before {
+                color: #6C7A89;
+                padding-right: 10px;
+                content: attr(data-label);
+                flex-basis: 50%;
+                text-align: right;
+            }
+        }
+    </style>
+
+</head>
+<body>
+<div class="menu">
+    <ul class="menuList">
+        <li class="menuListItem"><a th:href="@{/homeadmin}">Home </a></li>
+        <li class="menuListItem"><a th:href="@{/usersadmin}">Users </a></li>
+        <li class="menuListItem"><a th:href="@{/questionsadmin}" class="active">Questions</a></li>
+        <li class="menuListItem"><a th:href="@{/appointmentsadmin}">Appointments</a></li>
+        <div sec:authorize="isAuthenticated()">
+            <li class="menuListItem"><a th:href = "@{/logout}" th:method="post">Logout</a></li>
+        </div>
+    </ul>
+    <div class="textDiv1">
+        <h1>User Questions</h1>
+        <div class="container">
+            <table class="responsive-table">
+                <thead class="table-header">
+                <tr>
+                    <th class="col col-1">Question ID</th>
+                    <th class="col col-2">Username</th>
+                    <th class="col col-3">Question</th>
+                    <th class="col col-4">Answer</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="table-row" th:each="question: ${listQuestions}">
+                    <td class="col col-1" th:text="${question.id}"></td>
+                    <td class="col col-2" th:text="${question.username}"></td>
+                    <td class="col col-3"th:text="${question.quest}"></td>
+                    <td class="col col-4" th:text="${question.answer}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <form th:action="@{/edit_question}" th:object="${question}" method="post" class="login">
+            <div class="login__field">
+                <input type="text" th:field="*{id}" class="login__input" placeholder="Question ID" required />
+            </div>
+            <div class="login__field">
+                <input type="text" th:field="*{answer}" class="login__input" placeholder="Answer" required />
+            </div>
+            <button type="submit" class="login__submit">
+                <span class="button__text">Answer Question</span>
+            </button>
+        </form>
+    </div>
+</div>
+</body>
+
+</html>

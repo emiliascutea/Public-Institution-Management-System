@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html style="background-color:#56baed;" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<beans xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+          http://www.springframework.org/schema/security
+          http://www.springframework.org/schema/security/spring-security-3.0.3.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+</beans>
+<head>
+    <meta charset="ISO-8859-1">
+    <title>News</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.9.4/dist/css/uikit.min.css"/>
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <script src="uikit/dist/js/uikit-icons.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.9.4/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.9.4/dist/js/uikit-icons.min.js"></script>
+    <style>
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: #111;
+        }
+
+        .active {
+            background-color: #56baed;
+        }
+
+        body {
+            height: 100vh;
+        }
+
+        .menu {
+            background-color: #56baed;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+            min-height: 100%;
+            padding: 0px;
+            z-index: 1000;
+        }
+
+        .menuList {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            float: left;
+        }
+
+        .menuListItem {
+            float: left;
+        }
+
+        .uk-timeline .uk-timeline-item .uk-card {
+            max-height: 300px;
+            position: relative;
+            z-index: -1;
+            top: 170px;
+        }
+
+        .uk-timeline .uk-timeline-item {
+            display: flex;
+            position: relative;
+            z-index: -1;
+
+        }
+
+        .uk-timeline .uk-timeline-item::before {
+            background: #dadee4;
+            content: "";
+            height: 100%;
+            left: 19px;
+            position: relative;
+            top: 20px;
+            width: 2px;
+            z-index: -100;
+        }
+
+        .uk-timeline .uk-timeline-item .uk-timeline-icon .uk-badge {
+            margin-top: 170px;
+            width: 40px;
+            height: 40px;
+        }
+
+        .last{
+            margin-bottom: 100px;
+        }
+
+        .uk-timeline .uk-timeline-item .uk-timeline-content {
+            -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+            padding: 0 0 0 1rem;
+        }
+    </style>
+
+</head>
+<body>
+<div>
+    <div class="menu">
+        <ul class="menuList">
+            <li class="menuListItem"><a th:href="@{/home}">Home</a></li>
+            <li class="menuListItem"><a th:href="@{/about}">About</a></li>
+            <li class="menuListItem"><a th:href="@{/contact}">Contact</a></li>
+            <li class="menuListItem"><a th:href="@{/news}" class="active">News</a></li>
+            <li class="menuListItem"><a th:href="@{/documents}">Documents</a></li>
+            <div sec:authorize="isAnonymous()">
+                <li class="menuListItem"><a th:href="@{/homepage}">Login</a></li>
+            </div>
+            <div sec:authorize="isAuthenticated()">
+                <li class="menuListItem"><a th:href="@{/questions}">Questions</a></li>
+                <li class="menuListItem"><a th:href="@{/appointments}">Appointments</a></li>
+                <li class="menuListItem"><a th:href="@{/logout}" th:method="post">Logout</a></li>
+            </div>
+        </ul>
+    </div>
+
+    <div class="uk-container uk-padding">
+        <div class="uk-timeline">
+
+            <div class="uk-timeline-item">
+                <div class="uk-timeline-icon">
+                    <span class="uk-badge"><span uk-icon="check"></span></span>
+                </div>
+                <div class="uk-timeline-content">
+                    <div class="uk-card uk-card-default uk-margin-medium-bottom uk-overflow-auto">
+                        <div class="uk-card-header">
+                            <div class="uk-grid-small uk-flex-middle" uk-grid>
+                                <h3 class="uk-card-title">
+                                    <time datetime="2020-07-06">December 23</time>
+                                </h3>
+                                <span class="uk-label uk-label-success uk-margin-auto-left">Info</span>
+                            </div>
+                        </div>
+                        <div class="uk-card-body">
+                            <p>Local taxes and fees can be paid until the end of the year, as usual, both at the cash registers of the Fiscal Directorate from all City Hall offices and at the post offices.
+                                Only on Friday, December 31, the program will be shorter, until 09.00 and it will be possible to make payments only at the cashiers at the headquarters of the City Hall. The reduction of the program is necessary because the money collected must be deposited at the Cluj-Napoca Treasury until 10.00.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="uk-timeline-item">
+                <div class="uk-timeline-icon">
+                    <span class="uk-badge"><span uk-icon="check"></span></span>
+                </div>
+                <div class="uk-timeline-content">
+                    <div class="uk-card uk-card-default uk-margin-medium-bottom uk-overflow-auto">
+                        <div class="uk-card-header">
+                            <div class="uk-grid-small uk-flex-middle" uk-grid>
+                                <h3 class="uk-card-title">
+                                    <time datetime="2020-07-07">November 20</time>
+                                </h3>
+                                <span class="uk-label uk-margin-auto-left">Info</span>
+                            </div>
+                        </div>
+                        <div class="uk-card-body">
+                            <p>Until 01.01.2022 every citizen over 18 years old having residency in Cluj-Napoca, needs to give a statement
+                                regarding their monthly income at Cluj Napoca City Hall, at Calea Motilor 3.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="uk-timeline-item">
+                <div class="uk-timeline-icon">
+                    <span class="uk-badge"><span uk-icon="check"></span></span>
+                </div>
+                <div class="uk-timeline-content">
+                    <div class="uk-card uk-card-default uk-margin-medium-bottom uk-overflow-auto">
+                        <div class="uk-card-header">
+                            <div class="uk-grid-small uk-flex-middle" uk-grid>
+                                <h3 class="uk-card-title">
+                                    <time datetime="2020-07-06">October 28</time>
+                                </h3>
+                                <span class="uk-label uk-label-success uk-margin-auto-left">Fix</span>
+                            </div>
+                        </div>
+                        <div class="uk-card-body">
+                            <p>Our website crash was solved. We inform you that no data was lost and also the personal informations of the
+                                accounts are safe. We are sorry for the inconvenience and we thank you for your understanding!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="uk-timeline-item">
+                <div class="uk-timeline-icon">
+                    <span class="uk-badge"><span uk-icon="check"></span></span>
+                </div>
+                <div class="uk-timeline-content">
+                    <div class="uk-card uk-card-default uk-margin-medium-bottom uk-overflow-auto">
+                        <div class="uk-card-header">
+                            <div class="uk-grid-small uk-flex-middle" uk-grid>
+                                <h3 class="uk-card-title">
+                                    <time datetime="2020-07-06">October 27</time>
+                                </h3>
+                                <span class="uk-label uk-label-danger uk-margin-auto-left">Attention</span>
+                            </div>
+                        </div>
+                        <div class="uk-card-body">
+                            <p>We are sorry to inform you that our database server crashed. This problem is being fixed by our IT team as we speak,
+                                so you can have the best experience on our website.
+                                We are sorry for the inconvenience and we thank you for your understanding!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="uk-timeline-item">
+                <div class="uk-timeline-icon">
+                    <span class="uk-badge"><span uk-icon="check"></span></span>
+                </div>
+                <div class="uk-timeline-content">
+                    <div class="uk-card uk-card-default uk-margin-medium-bottom uk-overflow-auto">
+                        <div class="uk-card-header">
+                            <div class="uk-grid-small uk-flex-middle" uk-grid>
+                                <h3 class="uk-card-title">
+                                    <time datetime="2020-07-06">September 19</time>
+                                </h3>
+                                <span class="uk-label uk-margin-auto-left">Info</span>
+                            </div>
+                        </div>
+                        <div class="uk-card-body">
+                            <p>Following the next month, requests for obtaining the drivers license can be filled and submitted
+                                online.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="uk-timeline-item last">
+                <div class="uk-timeline-icon last">
+                    <span class="uk-badge last"><span uk-icon="check"></span></span>
+                </div>
+                <div class="uk-timeline-content">
+                    <div class="uk-card uk-card-default uk-margin-medium-bottom uk-overflow-auto">
+                        <div class="uk-card-header">
+                            <div class="uk-grid-small uk-flex-middle" uk-grid>
+                                <h3 class="uk-card-title">
+                                    <time datetime="2020-07-06">September 6</time>
+                                </h3>
+                                <span class="uk-label uk-label-success uk-margin-auto-left">Info</span>
+                            </div>
+                        </div>
+                        <div class="uk-card-body">
+                            <p>Following the meeting of the local council, the administration decided that the taxes should be reduced by 15% by the beginning of 2023.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
+

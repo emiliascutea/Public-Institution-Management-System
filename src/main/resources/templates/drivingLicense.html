@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html style="background-color:#56baed;" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Driving License</title>
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <style>
+        ol {
+            display: block;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: #111;
+        }
+
+        .sidenav {
+            height: 500%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 46px;
+            background-color: #333;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+
+        .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidenav {
+                padding-top: 15px;
+            }
+
+            .sidenav a {
+                font-size: 18px;
+            }
+        }
+
+        .active {
+            background-color: #56baed;
+        }
+
+        body {
+            height: 100vh;
+        }
+
+        .menu {
+            background-color: #56baed;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+            min-height: 100%;
+            padding: 0px;
+            z-index: 500;
+        }
+
+        .menuList {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            float: left;
+        }
+
+        .menuListItem {
+            float: left;
+        }
+
+        .openMenuButton {
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        .alignLeft {
+            text-align: left;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #56baed;
+            color: #fff;
+            font-family: "Poppins", sans-serif;
+            margin-top: 50px;
+        }
+
+        h3 {
+            margin: 0 0 13px 0;
+        }
+
+        a {
+            color: #fff;
+        }
+
+        .center {
+            text-align: center;
+            margin-left: 220px;
+            margin-bottom: 30px;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1220px;
+            margin-top: 50px;
+        }
+
+        .episode {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            position: relative;
+        }
+
+        .episode__number {
+            font-size: 10vh;
+            font-weight: 400;
+            padding: 10px 0;
+            position: sticky;
+            top: 10%;
+            text-align: center;
+            height: calc(10vw + 20px);
+            transition: all 0.2s ease-in;
+        }
+
+        .episode__content {
+            border-top: 2px solid #fff;
+            display: grid;
+            grid-template-columns: 1fr 4fr;
+            grid-gap: 10px;
+            padding: 15px 0;
+        }
+
+        .episode__content .title {
+            font-weight: 600;
+            color: black;
+        }
+
+        .episode__content .story {
+            line-height: 26px;
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+            .episode__content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .episode__content .story {
+                font-size: 15px;
+            }
+        }
+
+        .wrapper {
+            display: flex;
+        }
+    </style>
+
+
+</head>
+<body>
+<div class="wrapper">
+    <div class="menu">
+        <ul class="menuList">
+            <li class="menuListItem"><span class="openMenuButton" onclick="openNav()">&#9776;</span></li>
+            <li class="menuListItem"><a th:href="@{/home}">Home</a></li>
+            <li class="menuListItem"><a th:href="@{/about}">About</a></li>
+            <li class="menuListItem"><a th:href="@{/contact}">Contact</a></li>
+            <li class="menuListItem"><a th:href="@{/news}">News</a></li>
+            <li class="menuListItem"><a th:href="@{/documents}" class="active">Documents</a></li>
+            <div sec:authorize="isAnonymous()">
+                <li class="menuListItem"><a th:href="@{/homepage}">Login</a></li>
+            </div>
+            <div sec:authorize="isAuthenticated()">
+                <li class="menuListItem"><a th:href="@{/questions}">Questions</a></li>
+                <li class="menuListItem"><a th:href="@{/appointments}">Appointments</a></li>
+                <li class="menuListItem"><a th:href="@{/logout}" th:method="post">Logout</a></li>
+            </div>
+        </ul>
+        <div>
+            <div id="mySidenav" class="sidenav">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <a th:href="@{/registrationNumber}">Registration Number</a>
+                <a th:href="@{/drivingLicense}">Driving License</a>
+                <a th:href="@{/drivingTest}">Driving Test</a>
+                <a th:href="@{/passports}">Passports</a>
+                <a th:href="@{/taxes}">Taxes</a>
+            </div>
+
+            <script>
+                function openNav() {
+                    document.getElementById("mySidenav").style.width = "250px";
+                }
+
+                function closeNav() {
+                    document.getElementById("mySidenav").style.width = "0";
+                }
+            </script>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <h1 class="center">Driving License</h1>
+    <article class="episode">
+        <div class="episode__number">01</div>
+        <div class="episode__content">
+            <div class="title">Exchange of a foreign driving license with a similar Romanian document</div>
+            <div class="story">
+                <h3>In order to change the driving license, the applicant shall personally submit to the community
+                    public
+                    service, the following documents:</h3>
+                <h3>
+                    <ol class="alignLeft">
+                        <li>
+                            <ol class="alignLeft">
+                                <li>The national driving license issued by the authorities of the states provided in
+                                    article (2)
+                                    paragraph (1) of the Annex (1) whose change is requested, in original. If the
+                                    driving
+                                    license has been issued by the authorities of the states provided in article (2)
+                                    paragraph
+                                    (1) letters b) and c) of the Annexes (2) and (3) is also submitted the legalized
+                                    translation
+                                    into Romanian; or
+                                </li>
+                                <li>The document certifying the loss, theft or unjustified absence of the driving
+                                    license, if
+                                    the latter has been issued by the authorities of the EU Member States. If the
+                                    document is
+                                    not written in Romanian, a legalized translation into Romanian is also submitted.
+                                </li>
+                            </ol>
+                        </li>
+                        <li>The identity document of the applicant, as well as the documents proving the domicile or
+                            residence
+                            in Romania provided in article (1) paragraph (6) of the order
+                        </li>
+                        <li>The request of the applicant</li>
+                        <li>If a driving license with a new administrative validity is requested, the file for changing
+                            the
+                            driving license must also contain the document issued by an authorized healthcare unit
+                            showing that
+                            the holder is fit to drive motor vehicles from the categories mentioned in the driving
+                            license
+                            submitted for change
+                        </li>
+                        <li>Proof of payment of the fee provided by law - 89 lei</li>
+                    </ol>
+                </h3>
+            </div>
+        </div>
+    </article>
+
+    <article class="episode">
+        <div class="episode__number">02</div>
+        <div class="episode__content">
+            <div class="title">Issue of a Romanian driving license with a new administrative validity</div>
+            <div class="story">
+                <h3>
+                    <ol class="alignLeft">
+                        <li>The request of the applicant which is obtained and completed in electronic format at the
+                            booking
+                            office, together with the theft/loss declaration, as the case may be
+                        </li>
+                        <li>Identity card of the applicant, in original and in copy</li>
+                        <li>Proof of payment of the equivalent value for the driving license - 89 lei</li>
+                        <li>The original driving license</li>
+                        <li>The document issued by an authorized medical unit which shows that the holder is medially
+                            fit to
+                            drive vehicles of the category for which he requests the issuance of the driving
+                            license(medical
+                            file).
+                        </li>
+                    </ol>
+                </h3>
+            </div>
+        </div>
+    </article>
+
+
+    <article class="episode">
+        <div class="episode__number">03</div>
+        <div class="episode__content">
+            <div class="title">Issue of a duplicate of the Romanian driving license</div>
+            <div class="story">
+                <h3>
+                    <ol class="alignLeft">
+                        <li>The request of the applicant</li>
+                        <li>Identity card of the applicant, in original and in copy</li>
+                        <li>Proof of payment of the equivalent value for the driving license - 89 lei</li>
+                        <li>The original driving license, in case of damage</li>
+                        <h4>The duplicate shall be issued for the period of validity of the exchanged document.</h4>
+                        <h4>In order to issue a driving license with a new administrative validity, it is necessary to
+                            present
+                            the document issued by an authorized medical unit, which shows that the holder is medially
+                            fit to
+                            drive vehicles in the category for which the driving license is requested(medical file)</h4>
+                    </ol>
+                </h3>
+            </div>
+        </div>
+    </article>
+
+
+    <article class="episode">
+        <div class="episode__number">04</div>
+        <div class="episode__content">
+            <div class="title">Issue of a driving license in the case of Romanian citizens who have their
+                domicile or residence in Romania and are temporarily abroad
+            </div>
+            <div class="story">
+                <h3>In the case of Romanian citizens temporarily abroad but who have their domicile or residence in
+                    Romania, the
+                    application for the issuance of the driving license may be submitted by proxy, authorized by special
+                    power
+                    of attorney authenticated by the diplomatic missions or consular offices of Romania.</h3>
+                <h3>The power of attorney may also be authenticated by foreign authorities, in which case they must meet
+                    the
+                    conditions of over-legalization provided by law or have the signature applied according to the Hague
+                    Convention.</h3>
+                <h3>
+                    <ol class="alignLeft">
+                        <li>The request of the applicant</li>
+                        <li>Two recent color photographs of the holder, in the format 35 x 38.5 mm, which are applied on
+                            request, in the designated space, respectively in the upper right corner of the special
+                            power of
+                            attorney and are certified by applying the dry stamp of the diplomatic mission / consular
+                            post
+                        </li>
+                        <li>Proof of payment of the equivalent value of the driving license - 89 lei</li>
+                        <li>The driving license, when it is in the possession of the holder - in case of loss or theft
+                            of the
+                            driving license the holder declares this fact by completing the application accordingly
+                        </li>
+                        <h4>In the case of Romanian citizens, a copy of the identity card of the holder, from which it
+                            results
+                            that he has his domicile or residence in Romania</h4>
+                        <h4>In the case of foreign citizens, a copy of the residence card, residence permit,
+                            registration
+                            certificate accompanied by a copy of the passport, diplomatic passport / service</h4>
+                        <li>The document issued by an authorized medical unit, from which it results that the holder is
+                            medically fit to drive vehicles of the category for which he requests the issuance of the
+                            driving
+                            license
+                        </li>
+                        <li>The special power of attorney and the identity document of the applicant, in original and
+                            copy
+                        </li>
+                    </ol>
+                </h3>
+            </div>
+        </div>
+    </article>
+</div>
+</body>
+</html>

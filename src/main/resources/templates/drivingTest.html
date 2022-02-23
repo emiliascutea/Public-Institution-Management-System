@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html style="background-color:#56baed;" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Driving Test</title>
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <style>
+        ol {
+            display: block;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: #111;
+        }
+
+        .sidenav {
+            height: 500%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 46px;
+            background-color: #333;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+
+        .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidenav {
+                padding-top: 15px;
+            }
+
+            .sidenav a {
+                font-size: 18px;
+            }
+        }
+
+        .active {
+            background-color: #56baed;
+        }
+
+        body {
+            height: 100vh;
+        }
+
+        .menu {
+            background-color: #56baed;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+            min-height: 100%;
+            padding: 0px;
+            z-index: 500;
+        }
+
+        .menuList {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            float: left;
+        }
+
+        .menuListItem {
+            float: left;
+        }
+
+        .openMenuButton {
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        .alignLeft {
+            text-align: left;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #56baed;
+            color: #fff;
+            font-family: "Poppins", sans-serif;
+            margin-top: 50px;
+        }
+
+        h3 {
+            margin: 0 0 13px 0;
+        }
+
+        a {
+            color: #fff;
+        }
+
+        .center {
+            text-align: center;
+            margin-left: 220px;
+            margin-bottom: 30px;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1220px;
+            margin-top: 50px;
+        }
+
+        .episode {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            position: relative;
+        }
+
+        .episode__number {
+            font-size: 10vh;
+            font-weight: 400;
+            padding: 10px 0;
+            position: sticky;
+            top: 10%;
+            text-align: center;
+            height: calc(10vw + 20px);
+            transition: all 0.2s ease-in;
+        }
+
+        .episode__content {
+            border-top: 2px solid #fff;
+            display: grid;
+            grid-template-columns: 1fr 4fr;
+            grid-gap: 10px;
+            padding: 15px 0;
+        }
+
+        .episode__content .title {
+            font-weight: 600;
+            color: black;
+        }
+
+        .episode__content .story {
+            line-height: 26px;
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+            .episode__content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .episode__content .story {
+                font-size: 15px;
+            }
+        }
+
+        .wrapper {
+            display: flex;
+        }
+    </style>
+
+</head>
+<body>
+<div class="wrapper">
+    <div class="menu">
+        <ul class="menuList">
+            <li class="menuListItem"><span class="openMenuButton" onclick="openNav()">&#9776;</span></li>
+            <li class="menuListItem"><a th:href="@{/home}">Home</a></li>
+            <li class="menuListItem"><a th:href="@{/about}">About</a></li>
+            <li class="menuListItem"><a th:href="@{/contact}">Contact</a></li>
+            <li class="menuListItem"><a th:href="@{/news}">News</a></li>
+            <li class="menuListItem"><a th:href="@{/documents}" class="active">Documents</a></li>
+            <div sec:authorize="isAnonymous()">
+                <li class="menuListItem"><a th:href="@{/homepage}">Login</a></li>
+            </div>
+            <div sec:authorize="isAuthenticated()">
+                <li class="menuListItem"><a th:href="@{/questions}">Questions</a></li>
+                <li class="menuListItem"><a th:href="@{/appointments}">Appointments</a></li>
+                <li class="menuListItem"><a th:href="@{/logout}" th:method="post">Logout</a></li>
+            </div>
+        </ul>
+        <div>
+            <div id="mySidenav" class="sidenav">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <a th:href="@{/registrationNumber}">Registration Number</a>
+                <a th:href="@{/drivingLicense}">Driving License</a>
+                <a th:href="@{/drivingTest}">Driving Test</a>
+                <a th:href="@{/passports}">Passports</a>
+                <a th:href="@{/taxes}">Taxes</a>
+            </div>
+
+            <script>
+                function openNav() {
+                    document.getElementById("mySidenav").style.width = "250px";
+                }
+
+                function closeNav() {
+                    document.getElementById("mySidenav").style.width = "0";
+                }
+            </script>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <h1 class="center">Driving Test</h1>
+
+    <article class="episode">
+        <div class="episode__number">01</div>
+        <div class="episode__content">
+            <div class="title">Contents of the examination file</div>
+            <div class="story">
+                <h3>
+                    <ol class="alignLeft">
+                        <li>Standard application</li>
+                        <li>The school record - valid for one year from the date of graduation of the courses - issued
+                            by
+                            the driving school within which the applicant graduated the theoretical and practical
+                            training
+                            courses, in which the medical certificate is also recorded
+                        </li>
+                        <li>The criminal record certificate, within the validity term and, as the case may be, a copy of
+                            the
+                            final conviction, in case of conviction to imprisonment with execution or to the penalty of
+                            a
+                            fine, copy of the release note or document certifying the execution of the fine
+                        </li>
+                        <li>Proof of payment of the driving license - 89 lei</li>
+                    </ol>
+                </h3>
+            </div>
+        </div>
+    </article>
+</div>
+</body>
+</html>

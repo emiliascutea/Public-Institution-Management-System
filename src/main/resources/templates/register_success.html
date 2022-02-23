@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html style="background-color:#56baed;" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Registration Success</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <style>
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: #111;
+        }
+
+        .active {
+            background-color: #56baed;
+        }
+
+        body {
+            height: 100vh;
+        }
+
+        .menu {
+            background-color: #56baed;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+            min-height: 100%;
+            padding: 0px;
+        }
+
+        .menuList {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            float: left;
+        }
+
+        .menuListItem {
+            float: left;
+        }
+
+        .textDiv1 {
+            border-radius: 10px 10px 10px 10px;
+            background: #ffffff;
+            padding: 30px;
+            width: 90%;
+            max-width: 450px;
+            position: center;
+            box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+    </style>
+</head>
+
+<body>
+<div class="menu">
+    <ul class="menuList">
+        <li class="menuListItem"><a th:href="@{/home}" class="active">Home</a></li>
+        <li class="menuListItem"><a th:href="@{/about}">About</a></li>
+        <li class="menuListItem"><a th:href="@{/contact}">Contact</a></li>
+        <li class="menuListItem"><a th:href="@{/news}">News</a></li>
+        <li class="menuListItem"><a th:href="@{/documents}">Documents</a></li>
+        <div sec:authorize="isAnonymous()">
+            <li class="menuListItem"><a th:href="@{/homepage}">Login</a></li>
+        </div>
+        <div sec:authorize="isAuthenticated()">
+            <li class="menuListItem"><a th:href="@{/questions}">Questions</a></li>
+            <li class="menuListItem"><a th:href="@{/appointments}">Appointments</a></li>
+            <li class="menuListItem"><a th:href="@{/logout}" th:method="post">Logout</a></li>
+        </div>
+    </ul>
+
+    <div class="textDiv1">
+        <h3>Your account has been registered!</h3>
+        <h4><a th:href="@{/login}">Click here to Login</a></h4>
+    </div>
+
+</div>
+
+</body>
+</html>

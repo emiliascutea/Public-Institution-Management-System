@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html  style=" background-color:#56baed;" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Sign Up </title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+
+<style>
+    .bodyStyle {
+        background-color: #56baed;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 100%;
+        padding: 20px;
+    }
+
+    .divStyle {
+        border-radius: 10px 10px 10px 10px;
+        background: #ffffff;
+        padding: 30px;
+        margin-top: 50px;
+        width: 90%;
+        max-width: 450px;
+        position: center;
+        box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+        text-align: center;
+    }
+
+    .login {
+        width: 320px;
+        padding: 30px;
+    }
+
+    .login__field {
+        padding: 20px 0px;
+        position: relative;
+    }
+
+    .login__input {
+        border: none;
+        border-bottom: 2px solid #D1D1D4;
+        background: none;
+        padding: 10px;
+        padding-left: 24px;
+        font-weight: 700;
+        width: 75%;
+        transition: .2s;
+    }
+
+    .login__input:active,
+    .login__input:focus,
+    .login__input:hover {
+        outline: none;
+        border-bottom-color: #56baed;
+    }
+
+    .login__submit {
+        background: #fff;
+        font-size: 14px;
+        margin-top: 30px;
+        padding: 16px 20px;
+        border-radius: 26px;
+        border: 1px solid #D4D3E8;
+        text-transform: uppercase;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        color: #56baed;
+        box-shadow: 0px 2px 2px #56baed;
+        cursor: pointer;
+        transition: .2s;
+    }
+
+    .login__submit:active,
+    .login__submit:focus,
+    .login__submit:hover {
+        border-color: #56baed;
+        outline: none;
+    }
+
+    .headerStyle {
+        font-size: 24px;
+        font-family: Raleway, sans-serif;
+        color: dimgray;
+    }
+
+</style>
+
+<body class="bodyStyle">
+<div class="divStyle">
+    <h1 class="headerStyle">User Registration</h1>
+
+<!--    <form th:action="@{/process_register}" th:object="${user}" method="post" class="login">-->
+
+<!--        <div class="login__field">-->
+<!--            <input type="email" th:field="*{email}" class="login__input" placeholder="Email " required />-->
+<!--        </div>-->
+<!--        <div class="login__field">-->
+<!--            <input type="password" th:field="*{password}" class="login__input" placeholder="Password" required minlength="6" maxlength="10"/>-->
+<!--        </div>-->
+
+<!--        <div class="login__field">-->
+<!--            <input type="text" th:field="*{firstName}" class="login__input" placeholder="First Name" required minlength="2" maxlength="20"/>-->
+<!--        </div>-->
+
+<!--        <div class="login__field">-->
+<!--            <input type="text" th:field="*{lastName}" class="login__input" placeholder="Last Name" required minlength="2" maxlength="20" />-->
+<!--        </div>-->
+
+<!--        <button type="submit" class="login__submit">-->
+<!--            <span class="button__text" >Register</span>-->
+<!--        </button>-->
+<!--    </form>-->
+</div>
+</body>
+</html>

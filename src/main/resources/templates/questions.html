@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html style="background-color:#56baed;" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Questions</title>
+    <!--    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.9.4/dist/css/uikit.min.css"/>
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <script src="uikit/dist/js/uikit-icons.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.9.4/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.9.4/dist/js/uikit-icons.min.js"></script>
+    <style>
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: #111;
+        }
+
+        .active {
+            background-color: #56baed;
+        }
+
+        body {
+            height: 100vh;
+        }
+
+        .menu {
+            background-color: #56baed;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+            min-height: 100%;
+            padding: 0px;
+            z-index: 1000;
+        }
+
+        .menuList {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            float: left;
+        }
+
+        .menuListItem {
+            float: left;
+        }
+
+        .uk-timeline .uk-timeline-item .uk-card {
+            max-height: 300px;
+            position: relative;
+            z-index: -1;
+        }
+
+        .uk-timeline .uk-timeline-item {
+            display: flex;
+            position: relative;
+            z-index: -1;
+
+        }
+
+        .uk-timeline .uk-timeline-item::before {
+            background: #dadee4;
+            content: "";
+            height: 100%;
+            left: 19px;
+            position: relative;
+            top: 20px;
+            width: 2px;
+            z-index: -100;
+        }
+
+        .uk-timeline .uk-timeline-item .uk-timeline-icon .uk-badge {
+            width: 40px;
+            height: 40px;
+        }
+
+        .uk-timeline .uk-timeline-item .uk-timeline-content {
+            -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+            padding: 0 0 0 1rem;
+        }
+
+        .login__submit {
+            background: #fff;
+            font-size: 14px;
+            margin-top: 100px;
+            padding: 16px 20px;
+            border-radius: 26px;
+            border: 1px solid #D4D3E8;
+            text-transform: uppercase;
+            font-weight: 700;
+            width: 10%;
+            margin-left: 650px;
+            color: #56baed;
+            box-shadow: 0px 2px 2px #56baed;
+            cursor: pointer;
+            transition: .2s;
+            text-align: center;
+        }
+
+        .login__submit:active,
+        .login__submit:focus,
+        .login__submit:hover {
+            border-color: #56baed;
+            outline: none;
+        }
+    </style>
+
+
+</head>
+<body>
+<div>
+    <div class="menu">
+        <ul class="menuList">
+            <li class="menuListItem"><a th:href="@{/home}">Home</a></li>
+            <li class="menuListItem"><a th:href="@{/about}">About</a></li>
+            <li class="menuListItem"><a th:href="@{/contact}">Contact</a></li>
+            <li class="menuListItem"><a th:href="@{/news}">News</a></li>
+            <li class="menuListItem"><a th:href="@{/documents}">Documents</a></li>
+            <li class="menuListItem"><a th:href="@{/questions}" class="active">Questions</a></li>
+            <li class="menuListItem"><a th:href="@{/appointments}">Appointments</a></li>
+            <div sec:authorize="isAuthenticated()">
+                <li class="menuListItem"><a th:href="@{/logout}" th:method="post">Logout</a></li>
+            </div>
+        </ul>
+    </div>
+
+    <div class="login__submit">
+        <a th:href="@{/registerQuestion}">Ask a Question</a>
+    </div>
+
+    <div class="uk-container uk-padding">
+
+        <div class="uk-timeline forum">
+
+            <div class="uk-timeline-item" th:each="question: ${listQuestions}">
+                <div class="uk-timeline-icon">
+                    <span class="uk-badge"><span uk-icon="check"></span></span>
+                </div>
+                <div class="uk-timeline-content">
+                    <div class="uk-card uk-card-default uk-margin-medium-bottom uk-overflow-auto">
+                        <div class="uk-card-header">
+                            <div class="uk-grid-small uk-flex-middle" uk-grid>
+                                <h3>
+                                    <p th:text="${question.quest}" class="question uk-card-title ">
+                                    </p>
+                                </h3>
+                                <span class="uk-label uk-label-success uk-margin-auto-left">Info</span>
+                            </div>
+                        </div>
+                        <div class="uk-card-body">
+                            <p th:text="${question.answer}" class="question">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</div>
+</html>
